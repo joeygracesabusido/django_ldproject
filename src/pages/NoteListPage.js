@@ -22,11 +22,18 @@ const NoteListPage = () => {
     return (
         <div>
             <div className="notes-list">
-                {notes.map((note, index)  =>(
-                    // <h3 key={index}>{note.body}</h3>
-                    <Listitems key={index} note={note}>
-                    </Listitems>
-                ))}
+                <div>
+                    <h2>&#9782;</h2> 
+                    <p className="notes">{notes.length}</p>
+                </div>
+                <div className="notes">
+                    <h1> </h1>
+                    {notes.map((note, index)  =>(
+                        // <h3 key={index}>{note.body}</h3>
+                        <Listitems key={index} note={note}>
+                        </Listitems>
+                    ))}
+                </div>
             </div>
         </div>
     )
