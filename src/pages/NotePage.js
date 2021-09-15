@@ -22,8 +22,7 @@ const NotePage = ({ match }) => {
     }
 
     return (
-        <div>
-            
+        <div>  
             <p>{note?.body}</p>
         </div> 
     )

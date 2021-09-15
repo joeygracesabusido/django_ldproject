@@ -24,7 +24,7 @@ const NoteListPage = () => {
             <div className="notes-list">
                 <div>
                     <h2>&#9782;</h2> 
-                    <p className="notes">{notes.length}</p>
+                    <h1 clssName="notes">{notes.length}</h1>
                 </div>
                 <div className="notes">
                     <h1> </h1>

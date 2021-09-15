@@ -6,3 +6,37 @@
     margin-right: auto;
     border: 3px solid green;
   }
+
+.modal {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(244, 250, 244, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+};
+
+.modal-content {
+  width: 500px;
+  background-color: rgba(227, 250, 227, 0.918);
+};
+
+.modal-header, .modal-footer {
+  padding: 10px;
+};
+
+.modal-body {
+  padding: 10px;
+  border-top: 1px solid rgba(227, 250, 227, 0.918);
+  border-bottom: 1px solid rgba(227, 250, 227, 0.918);
+};
+
+.modal-title {
+  margin: 0;
+}
+
+
+
