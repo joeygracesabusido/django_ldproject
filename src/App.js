@@ -16,12 +16,20 @@ import NotePage from './pages/NotePage'
 
 import Createpost from './components/Createpost';
 
+import Navbar from './components/Navbar';
+import ListNote from './components/ListNote';
+
+
+
 function App() {
   return (
     <Router>
-      <Route path="/" exact component={NoteListPage} />
-      <Route path="/note/:id" component={NotePage}/>
-      <Route path="/create-post/" component={Createpost}/>
+      <Navbar/>
+      <br/>
+        <Route path="/" exact component={Navbar} />
+        <Route path="/note/:id" component={NotePage}/>
+        <Route path="/create-post/" component={Createpost}/>
+        <Route path="/note-list/" component={ListNote}/>
       {/* <div className="app"> */}
         
         {/* <div className="container"> */}
