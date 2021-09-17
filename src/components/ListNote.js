@@ -1,6 +1,6 @@
-import React, {useState, useEffect} from 'react'
-import axios from 'axios'
-
+import React, {useState, useEffect} from 'react';
+import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 
 const ListNote = ({history}) => {
@@ -30,10 +30,10 @@ const ListNote = ({history}) => {
     }
 
     const renderHeader = () => {
-        let headerElement = ['id', 'notes']
+        let headerElement = ['id', 'notes', 'action']
 
         return headerElement.map((key, index) => {
-            return <th key={index}>{key.toUpperCase()}</th>
+            return <th className='text-center' key={index}>{key.toUpperCase()}</th>
         })
     }
 
@@ -56,6 +56,8 @@ const ListNote = ({history}) => {
                     <td>{body}</td>
                     
                     <td className='opration'>
+                        {/* <Link to={'/edit/' + props.owners_detail._id} className="btn btn-sm btn-primary">Edit</Link> */}
+                        <Link to={'/note-update/'+(id)}  className="btn btn-sm btn-primary">Edit</Link>
                         <button className='btn btn-sm btn-danger' onClick={() => removeData(id)}>Delete</button>
                     </td>
                 </tr>

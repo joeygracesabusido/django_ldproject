@@ -12,12 +12,14 @@ import Header from './components/Header'
 import NoteListPage from './pages/NoteListPage'
 
 import NotePage from './pages/NotePage'
-
+import Listitems from './components/Listitems';
 
 import Createpost from './components/Createpost';
 
 import Navbar from './components/Navbar';
 import ListNote from './components/ListNote';
+
+import EditNotes from './components/EditNotes';
 
 
 
@@ -27,9 +29,11 @@ function App() {
       <Navbar/>
       <br/>
         <Route path="/" exact component={Navbar} />
-        <Route path="/note/:id" component={NotePage}/>
+        <Route path="/notelist/" component={NoteListPage}/>
+        <Route path="/note-test/:id" component={NotePage}/>
         <Route path="/create-post/" component={Createpost}/>
         <Route path="/note-list/" component={ListNote}/>
+        <Route path="/note-update/:id" component={EditNotes}/>
       {/* <div className="app"> */}
         
         {/* <div className="container"> */}

@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom';
 
 
@@ -23,6 +23,9 @@ const Navbar = () => {
                             </li>
                             <li className="nav-dropdown">
                                 <Link className="nav-link" to="/note-list/">Notes List</Link>
+                            </li>
+                            <li className="nav-dropdown">
+                                <Link className="nav-link" to="/note-update/">Update Notes</Link>
                             </li>
                             
 

@@ -53,7 +53,7 @@ const Createpost = ({history}) => {
           data: formfield 
         }).then ((response) => {
             console.log(response.data)
-            history.push('/')
+            history.push('/note-list/')
         })
        
 
