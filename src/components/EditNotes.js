@@ -20,7 +20,7 @@ display: 'inline-block'
 const EditNotes = ({match, history}) => {
 
     const [showModal, setshowModal] = useState(true);
-    let [note, setNote] = useState(null);
+    let [note, setNote] = useState('');
     const [post, setPost] = useState('');
     let noteID = match.params.id
 
@@ -29,39 +29,58 @@ const EditNotes = ({match, history}) => {
         setshowModal(!setshowModal)
       }
 
-    useEffect(() => {
-        getNote();
-    }, [noteID])
-
-    const onPost = (e) => {
-        setPost(e.target.value);
-       
-    }
-
     let getNote = async () => {
 
     let response = await fetch(`/api/note/${noteID}/`)
     let data = await response.json()
-    console.log(data)
-    setNote(data)
+    // console.log(data)
+    setNote(data.body)
     
     };
+
+    useEffect(() => {
+        getNote();
+    }, [])
+
+    // const onPost = (e) => {
+    //     setPost(e.target.value);
+       
+    // }
+
+    
+
+    // const updateNote = async () => {
+    //     fetch(`/api/note/${noteID}/update/`, {
+    //         method: "PUT",
+    //         headers:{
+    //             'Content-Type': 'application/json'
+    //         },
+    //         body:JSON.stringify(note)
+    //     })
+    //     console.log(note)
+    // };
 
     const updateNote = async () => {
         let formfield = new FormData()
 
-        formfield.append('body', post)
+        formfield.append('body', note)
 
         await axios({
           method: 'PUT',
-          url: `/api/note/${noteID}/update/`,
-        
+          url: `/api/notes/${noteID}/update`,
           data: formfield 
-        }).then ((response) => {
+        }).then (response => {
             console.log(response.data)
             history.push('/note-list/')
         })
     };
+
+    let handleSubmit = () => {
+        updateNote()
+        history.push('/note-list/')
+    }
+
+    
 
     return (
         <>
@@ -85,17 +104,17 @@ const EditNotes = ({match, history}) => {
                             type="input"
                             data-name='body'
                             className="form-control"
-                            required onChange={onPost}
-                            //   value = {post}
-                            value={note?.body}
+                            onChange={(e) => setNote(e.target.value)}
+                           
+                            value={note}
                             style={inputStyle}
-
+ 
                             />
                         
                         </div>
 
                         <div className="modal-footer">
-                            <button className="btn btn-sm btn-info" onClick={updateNote} >Update</button>
+                            <button className="btn btn-sm btn-info" onClick={handleSubmit} >Update</button>
                         
                         </div>
                         </div>

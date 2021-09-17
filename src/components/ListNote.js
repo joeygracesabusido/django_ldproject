@@ -67,7 +67,7 @@ const ListNote = ({history}) => {
     return (
         <div className="container" style={{ marginTop: 40 }}>
             <>
-                <h1 id='title'>Electric Beg. Bal</h1>
+                <h1 id='title'>Post</h1>
                 <table className="table table-bordered table-hover">
                     <thead>
                         <tr>{renderHeader()}</tr>
