@@ -20,6 +20,7 @@ import Navbar from './components/Navbar';
 import ListNote from './components/ListNote';
 
 import EditNotes from './components/EditNotes';
+import Testsearch from './components/Testseacrh';
 
 
 
@@ -34,6 +35,7 @@ function App() {
         <Route path="/create-post/" component={Createpost}/>
         <Route path="/note-list/" component={ListNote}/>
         <Route path="/note-update/:id" component={EditNotes}/>
+        <Route path="/test-list/" component={Testsearch}/>
       {/* <div className="app"> */}
         
         {/* <div className="container"> */}

@@ -31,10 +31,10 @@ const EditNotes = ({match, history}) => {
 
     let getNote = async () => {
 
-    let response = await fetch(`/api/note/${noteID}/`)
-    let data = await response.json()
-    // console.log(data)
-    setNote(data.body)
+        let response = await fetch(`/api/note/${noteID}/`)
+        let data = await response.json()
+        // console.log(data)
+        setNote(data.body)
     
     };
 

@@ -25,7 +25,7 @@ const ListNote = ({history}) => {
     const loadBegList = async () => {
         try {
             // let  response  = await fetch(`/api/notes/`)
-            let  response  = await fetch(`/api/notes/${linkWord}${test}`)
+            let  response  = await fetch(`/api/notes/`)
             let data = await response.json()
 
             if (data) {
