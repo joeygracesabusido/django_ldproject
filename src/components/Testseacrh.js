@@ -18,6 +18,8 @@ const Testseacrh = () => {
 
     const [searchBody, setSearchBody] = useState('');
 
+    const [searchdate, setSearchdate] = useState('');
+
     const [electBegBal, setElectBegBal] = useState([]);
 
     
@@ -51,7 +53,7 @@ const Testseacrh = () => {
     const loadList = async () => {
         try {
             // let  response  = await fetch(`/api/notes/`)
-            let  response  = await fetch(`/api/search/${searchBody}`)
+            let  response  = await fetch(`/api/search/${searchBody}/`)
             let data = await response.json()
 
             if (data) {
@@ -124,8 +126,20 @@ const Testseacrh = () => {
                         
 
                         />
+
+                        <input
+                            type="date"
+                            data-name='body'
+                            className="form-control"
+                            placeholder="Search Notes"
+                            onChange={(e) => setSearchdate(e.target.value)}
+                            
+                            value={searchdate}
+                            style={inputStyle} 
+                        />
                         <button className="btn btn-sm btn-info" onClick={loadList}>Search</button>
              
+
             </div>
             
             <div>
