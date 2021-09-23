@@ -23,6 +23,8 @@ import EditNotes from './components/EditNotes';
 import Testsearch from './components/Testseacrh';
 
 import Addchartofaccount from './components/Addchartofaccount';
+import Listchartofaccount from './components/Listchartofaccount';
+import AccountingDashboard from './components/AccountingDashboard';
 
 
 
@@ -38,7 +40,9 @@ function App() {
         <Route path="/note-list/" component={ListNote}/>
         <Route path="/note-update/:id" component={EditNotes}/>
         <Route path="/test-list/" component={Testsearch}/>
+        <Route path="/accountingDashboard/" component={AccountingDashboard}/>
         <Route path="/add-chartofaccount/" component={Addchartofaccount}/>
+        <Route path="/chartofaccount-list/" component={Listchartofaccount}/>
       {/* <div className="app"> */}
         
         {/* <div className="container"> */}

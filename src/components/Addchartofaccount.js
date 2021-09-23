@@ -41,7 +41,7 @@ const selectStyle = {
 const Addchartofaccount = ({history}) => {
 
     const [showModal, setshowModal] = useState(true);
-    const [selectOption, setSelectOption] = useState('');
+    const [selectOption, setSelectOption] = useState('Current Asset');
    
     const [accountname, setAccountname] = useState('');
     const [code, setCode] = useState('');
@@ -86,7 +86,7 @@ const Addchartofaccount = ({history}) => {
         
         }).then ((response) => {
             console.log(response.data)
-            // history.push('/')
+            history.push('/chartofaccount-list/')
         })
     }
         

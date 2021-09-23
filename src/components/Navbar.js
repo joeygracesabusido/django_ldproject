@@ -28,8 +28,10 @@ const Navbar = () => {
                                 <Link className="nav-link" to="/test-list/">Test List</Link>
                             </li>
                             <li className="nav-dropdown">
-                                <Link className="nav-link" to="/add-chartofaccount/">Accounting</Link>
+                                <Link className="nav-link" to="/accountingDashboard/">Accounting</Link>
                             </li>
+
+                           
                             
 
                         </ul>
