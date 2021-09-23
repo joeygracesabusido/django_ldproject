@@ -22,6 +22,8 @@ import ListNote from './components/ListNote';
 import EditNotes from './components/EditNotes';
 import Testsearch from './components/Testseacrh';
 
+import Addchartofaccount from './components/Addchartofaccount';
+
 
 
 function App() {
@@ -36,6 +38,7 @@ function App() {
         <Route path="/note-list/" component={ListNote}/>
         <Route path="/note-update/:id" component={EditNotes}/>
         <Route path="/test-list/" component={Testsearch}/>
+        <Route path="/add-chartofaccount/" component={Addchartofaccount}/>
       {/* <div className="app"> */}
         
         {/* <div className="container"> */}
