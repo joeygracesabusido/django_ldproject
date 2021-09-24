@@ -22,9 +22,17 @@ import ListNote from './components/ListNote';
 import EditNotes from './components/EditNotes';
 import Testsearch from './components/Testseacrh';
 
+// this is for chart of account transactions
 import Addchartofaccount from './components/Addchartofaccount';
 import Listchartofaccount from './components/Listchartofaccount';
 import AccountingDashboard from './components/AccountingDashboard';
+import EditCOF from './components/EditCOF';
+
+// this is for Journal Entry Transaction
+
+import JournalEntry from './components/JournalEntry';
+
+
 
 
 
@@ -43,6 +51,9 @@ function App() {
         <Route path="/accountingDashboard/" component={AccountingDashboard}/>
         <Route path="/add-chartofaccount/" component={Addchartofaccount}/>
         <Route path="/chartofaccount-list/" component={Listchartofaccount}/>
+        <Route path="/chartofaccount-edit/:id" component={EditCOF}/>
+        <Route path="/journalEntry-post/" component={JournalEntry}/>
+        
       {/* <div className="app"> */}
         
         {/* <div className="container"> */}

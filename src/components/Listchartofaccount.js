@@ -61,7 +61,7 @@ const Listchartofaccount = () => {
                     
                     <td className='opration'>
                         {/* <Link to={'/edit/' + props.owners_detail._id} className="btn btn-sm btn-primary">Edit</Link> */}
-                        <Link to={'/note-update/'+(id)}  className="btn btn-sm btn-primary">Edit</Link>
+                        <Link to={'/chartofaccount-edit/'+(id)}  className="btn btn-sm btn-primary">Edit</Link>
                         <button className='btn btn-sm btn-danger' onClick={() => removeData(id)}>Delete</button>
                     </td>
                 </tr>

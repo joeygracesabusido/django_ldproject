@@ -24,6 +24,10 @@ const AccountingDashboard = () => {
                 <h1 style={h1Style}>Chart of Account list</h1>
             </Link>
 
+            <Link to={`/journalEntry-post/`} >
+                <h1 style={h1Style}>Journal Voucher</h1>
+            </Link>
+
     
 
     

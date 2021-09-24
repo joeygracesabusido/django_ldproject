@@ -1,28 +1,16 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import Select from 'react-select';
-import axios from 'axios';
+import React, {useState, useEffect} from 'react';
+import { Link } from 'react-router-dom'
+import axios from 'axios'
 
-
-const options = [
-    { value: 'Current Asset', label: 'Current Asset' },
-    { value: 'Non-Current Asset', label: 'Non-Current Asset' },
-    { value: 'Current Liability', label: 'Current Liability' },
-    { value: 'Non-Current Liability', label: 'Non-Current Liability' },
-    { value: 'Equity', label: 'Equity' },
-    { value: 'Income', label: 'Income' },
-    { value: 'Cost OF Sale Expense', label: 'Cost OF Sale Expense' },
-    { value: 'General and Adminimistrative Expense', label: 'General and Adminimistrative Expense' },
-  ]
 
 const inputStyle = {
-width: '350px',
-display: 'inline-block',
-height: '30px',
-margin: '5px'
-// margin: '0 auto'
-
-};
+    width: '300px',
+    display: 'inline-block',
+    height: '30px',
+    margin: '5px'
+    // margin: '0 auto'
+  
+  };
 
 const labelStyle = {
 width: '150px',
@@ -31,65 +19,91 @@ display: 'inline-block'
 
 };
 
-const selectStyle = {
-    width: '50px',
-    fontSize: '11px',
-    display: 'inline-block'
-    
-};
-
-const Addchartofaccount = ({history}) => {
+const EditCOF = ({match, history}) => {
 
     const [showModal, setshowModal] = useState(true);
-    const [selectOption, setSelectOption] = useState('Current Asset');
-   
-    const [accountname, setAccountname] = useState('');
+    const [selectOption, setSelectOption] = useState('');
+    let [list, setList] = useState([]);
+    const [post, setPost] = useState('');
+
+    const [tbchart, setTbchart] = useState('');
+    const [actname, setActname] = useState('');
     const [code, setCode] = useState('');
+
+    
+
+    let noteID = match.params.id
 
     const manageState = () => {
 
         setshowModal(!setshowModal)
-      };
-
-    // const onSelect = (e) => {
-    //     setSelectOption(e.target.value);
-    
-    // };
-
-    const changeoption = (newOption) => {
-        setSelectOption(newOption)
       }
 
-    
+    const changeoption = (newOption) => {
+        setTbchart(newOption)
+    }
 
-    const onAccount = (e) => {
-        setAccountname(e.target.value);
+
+    let getCOA = async () => {
+
+        let response = await fetch(`/accountingModule/coa/${noteID}`)
+        let data = await response.json()
+        console.log(data)
+        setTbchart(data.trialBalance_chart)
+        setActname(data.account_name)
+        setCode(data.code)
+       
     
     };
 
-    const onCode = (e) => {
-        setCode(e.target.value);
-    
-    };
+    useEffect(() => {
+        getCOA();
+    }, [])
 
-    const AddChartofAcct = async () => {
+    // const onPost = (e) => {
+    //     setPost(e.target.value);
+       
+    // }
+
+    
+
+    // const updateCOA = async () => {
+    //     fetch(`/accountingModule/coa-update/${noteID}`, {
+    //         method: "PUT",
+    //         headers:{
+    //             'Content-Type': 'application/json'
+    //         },
+    //         trialBalance_chart:JSON.stringify(list.trialBalance_chart),
+    //         account_name:JSON.stringify(list.account_name),
+    //         code:JSON.stringify(list.code)
+            
+    //     })
+    //     console.log(list)
+    // };
+
+    const updateCOA = async () => {
+        
         let formfield = new FormData()
 
-        formfield.append('trialBalance_chart', selectOption)
-        formfield.append('account_name', accountname)
+        formfield.append('trialBalance_chart', tbchart)
+        formfield.append('account_name', actname)
         formfield.append('code', code)
 
         await axios({
-            method: 'POST',
-            url: `/accountingModule/chartsofaccount-post/`,
-            data: formfield 
-        
-        }).then ((response) => {
+          method: 'PUT',
+          url: `/accountingModule/coa-update/${noteID}`,
+          data: formfield 
+        }).then (response => {
             console.log(response.data)
-            history.push('/chartofaccount-list/')
+            // history.push('/note-list/')
         })
+    };
+
+    let handleSubmit = () => {
+        updateCOA()
+        history.push('/chartofaccount-list/')
     }
-        
+
 
     return (
         <>
@@ -110,7 +124,7 @@ const Addchartofaccount = ({history}) => {
                     <label style={labelStyle}>Chart of Account</label>
                     <select style={inputStyle}
                         onChange={(event) => changeoption(event.target.value)}
-                        value={selectOption}
+                        value={tbchart}
                         >
                         <option value="Current Asset">Current Asset</option>
                         <option value="Non-Current Asset">Non-Current Asset</option>
@@ -124,21 +138,15 @@ const Addchartofaccount = ({history}) => {
                         
                         </select>
 
-                    {/* <Select  options ={options}
-                    data-name='trialBalance_chart' 
-                    onChange={(event) => changeoption(event.target.value)}
-                    // value={options.value}
-                    value = {selectOption}
-                    style={selectStyle} 
-                    /> */}
+                  
 
                     <label style={labelStyle}>Account Name</label>
                     <input
                     type="input"
                     data-name='account_name'
                     className="form-control"
-                      onChange={onAccount}
-                      value={accountname}
+                    onChange={(e) => setActname(e.target.value)}
+                    value={actname}
                     style={inputStyle}
 
                     />
@@ -148,7 +156,7 @@ const Addchartofaccount = ({history}) => {
                     type="input"
                     data-name='code'
                     className="form-control"
-                      onChange={onCode}
+                    onChange= {(e) => setCode(e.target.value)}
                       value={code}
                     style={inputStyle}
 
@@ -157,7 +165,7 @@ const Addchartofaccount = ({history}) => {
               </div>
 
               <div className="modal-footer">
-                <button className="btn btn-sm btn-info" onClick={AddChartofAcct} >Save</button>
+                <button className="btn btn-sm btn-info" onClick={handleSubmit} >Update</button>
                 <Link to='/accountingDashboard/' className="btn btn-sm btn-danger">Close</Link>
               </div>
                 </div>
@@ -168,4 +176,4 @@ const Addchartofaccount = ({history}) => {
     )
 }
 
-export default Addchartofaccount
+export default EditCOF
