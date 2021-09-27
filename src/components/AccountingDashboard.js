@@ -1,5 +1,6 @@
 import React from 'react';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+
 
 
 const h1Style = {
@@ -12,7 +13,7 @@ const h1Style = {
 
 const AccountingDashboard = () => {
     return (
-        <div className="container" style={{ marginTop: 70 }}>
+        <div className="" style={{ marginTop: 70 }}>
            
            
             <Link to={`/add-chartofaccount/`} >

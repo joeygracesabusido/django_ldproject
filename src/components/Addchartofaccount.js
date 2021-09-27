@@ -16,7 +16,7 @@ const options = [
   ]
 
 const inputStyle = {
-width: '350px',
+width: '300px',
 display: 'inline-block',
 height: '30px',
 margin: '5px'
@@ -25,7 +25,7 @@ margin: '5px'
 };
 
 const labelStyle = {
-width: '150px',
+width: '250px',
 fontSize: '15px',
 display: 'inline-block'
 

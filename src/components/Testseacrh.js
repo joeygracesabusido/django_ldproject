@@ -10,6 +10,11 @@ const inputStyle = {
   
   };
 
+const divStyle = {
+    margin_right: 'auto',
+    margin_left: 'auto'
+}
+
 const Testseacrh = () => {
 
     const [post, setPost] = useState('');
@@ -112,7 +117,7 @@ const Testseacrh = () => {
 
     return (
         <div className="container" style={{ marginTop: 70 }}>
-            <div className="container">
+            <div className="container" style={divStyle}>
                         <input
                         type="input"
                         data-name='body'
