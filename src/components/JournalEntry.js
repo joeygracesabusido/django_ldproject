@@ -72,6 +72,10 @@ const JournalEntry = () => {
 
     const [items, setItems] = React.useState([]);
 
+    // const [req, setReq] = useState({
+    //   account_name:""
+    // })
+
 
     const [ inputfields, setInputfields] = useState([
       {debit:"", credit:""}
@@ -87,6 +91,9 @@ const JournalEntry = () => {
     //   getCharacters();
     // }, []);
   
+    useEffect(() =>{
+      loadChartofAccountList()
+    },[])
 
     const manageState = () => {
         setshowModal(!setshowModal)
@@ -208,9 +215,9 @@ const JournalEntry = () => {
                     <select style={selectStyle}>
                         // onChange={(event) => changeoption(event.target.value)}
                         // value={selectOption}
-                        {charlist.map((data) => (
-                          <option title={data}>{data}</option>
-                        ))}
+                        {/* {charlist.map((data) => (
+                          <option value={data}>{data}</option>
+                        ))} */}
                         
                         {/* <option value="General">General</option>
                         <option value="Payment">Payment</option>
