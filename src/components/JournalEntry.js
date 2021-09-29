@@ -1,7 +1,8 @@
-import { eventListeners } from '@popperjs/core';
+// import { eventListeners } from '@popperjs/core';
 import React, {useState, useEffect} from 'react';
 import { Link } from 'react-router-dom';
-// import DeleteIcon from '@shapla/react-delete-icon';
+import axios from 'axios';
+
 
 
 const mdalStyle = {
@@ -63,14 +64,21 @@ const selectStyle = {
     
     };
 
-const JournalEntry = () => {
+const JournalEntry = ({history}) => {
 
     const [showModal, setshowModal] = useState(true);
     const [selectOption, setSelectOption] = useState('Current Asset');
 
     const [charlist, setCharlist] = useState([]);
 
-    const [items, setItems] = React.useState([]);
+    const [date, setDate] = React.useState('');
+    // const [journal_r, setJournal_r] = React.useState('');
+    const [reference_r, setReference_r] = React.useState('');
+    const [check_no_ref_r, setCheck_no_ref_r] = React.useState('');
+    const [journalMemo_r, setJournalMemo_r] = React.useState('');
+    const [account_name_r, setAccount_name_r] = React.useState('');
+    const [debit_r, setDebit_r] = React.useState('');
+    const [credit_r, setCredit_r] = React.useState('');
 
     // const [req, setReq] = useState({
     //   account_name:""
@@ -78,18 +86,13 @@ const JournalEntry = () => {
 
 
     const [ inputfields, setInputfields] = useState([
-      {debit:"", credit:""}
+      {debit:'', credit:''}
+    
     ]);
 
+    // const [ inputfields, setInputfields] = useState('');
 
-    // React.useEffect(() => {
-    //   async function getCharacters() {
-    //     const response = await fetch(`/accountingModule/chartsofaccount-list/`);
-    //     const body = await response.json();
-    //     setItems(body.results.map(({ name }) => ({ label: name, value: name })));
-    //   }
-    //   getCharacters();
-    // }, []);
+
   
     useEffect(() =>{
       loadChartofAccountList()
@@ -130,16 +133,85 @@ const JournalEntry = () => {
           let data = await response.json()
 
           if (data) {
-              setCharlist(data)
-              console.log(data)
+            setCharlist(data)
+              // setCharlist(data.map(data => {
+              //   console.log(data.account_name)
+              // }))
+              // console.log(data[0].account_name)
 
           }
-          console.log(data)
+          // data.map( data => {
+          //   console.log(data.account_name)
+          // })
+          // console.log(data[0])
       } catch (err) {
-          // console.log(err);
+          console.log(err);
 
       }
     };
+
+    const JournalEntry = async () => {
+      let formfield = new FormData()
+
+      formfield.append('transdate', date)
+      formfield.append('journal', selectOption)
+      formfield.append('reference', reference_r)
+      formfield.append('check_no_ref', check_no_ref_r)
+      formfield.append('journalMemo', journalMemo_r)
+      formfield.append('account_name', account_name_r)
+      formfield.append('debit', debit_r)
+      formfield.append('credit', credit_r)
+
+      await axios({
+          method: 'POST',
+          url: `/accountingModule/journal-post/`,
+          data: formfield 
+      
+      }).then ((response) => {
+          console.log(response.data)
+          history.push('/chartofaccount-list/')
+      })
+    };
+
+    const onDate = (e) => {
+      setDate(e.target.value);
+
+    };
+
+    // const onJournal = (e) => {
+    //   setJournal_r(e.target.value);
+
+    // };
+
+    const onReference = (e) => {
+      setReference_r(e.target.value);
+
+    };
+
+    const onCheckRef = (e) => {
+      setCheck_no_ref_r(e.target.value);
+
+    };
+
+    const onJournalmemo = (e) => {
+      setJournalMemo_r(e.target.value);
+
+    };
+
+    const onDebit = (e) => {
+      setDebit_r(e.target.value);
+
+    };
+
+    const onCredit = (e) => {
+      setCredit_r(e.target.value);
+
+    };
+
+    const handleSubmit = (e) => {
+      e. preventDefault();
+      console.log('Inputfields', inputfields)
+    }
 
     return (
         <>
@@ -161,8 +233,8 @@ const JournalEntry = () => {
                             <input
                             type="date"
                             className="form-control"
-                            // onChange={onAccount}
-                            // value={accountname}
+                            onChange={onDate}
+                            value={date}
                             style={inputStyle}
 
                             />
@@ -184,8 +256,8 @@ const JournalEntry = () => {
                         <input
                         type="input"
                         className="form-control"
-                        // onChange={onAccount}
-                        // value={accountname}
+                        onChange={onReference}
+                        value={reference_r}
                         style={inputStyle}
 
                         />
@@ -194,15 +266,16 @@ const JournalEntry = () => {
                         <input
                         type="input"
                         className="form-control"
-                        // onChange={onAccount}
-                        // value={accountname}
+                        onChange={onCheckRef}
+                        value={check_no_ref_r}
                         style={inputStyle}
 
                         />
                      <label style={labelStyle}>Journal Memo</label>
                         <textarea 
                         name="Text1" cols="33" rows="3"
-                        
+                        onChange={onJournalmemo}
+                        value={journalMemo_r}
                         >
 
                         </textarea>
@@ -213,34 +286,33 @@ const JournalEntry = () => {
                   <div key={index}>
                     
                     <select style={selectStyle}>
-                        // onChange={(event) => changeoption(event.target.value)}
-                        // value={selectOption}
-                        {/* {charlist.map((data) => (
-                          <option value={data}>{data}</option>
-                        ))} */}
+                        onChange={(event) => changeoption(event.target.value)}
+                        value={selectOption}
+                        {charlist.map((data) => (
+                          <option value={data}>{data.account_name}</option>
+                        ))}
                         
-                        {/* <option value="General">General</option>
-                        <option value="Payment">Payment</option>
-                        <option value="Receipts">Receipts</option>
-                        <option value="Sales">Sales</option>
-                        <option value="Purchases">Purchases</option> */}
                        
                         
                       </select>
 
 
-                    <input type="text"
+                    <input type="number"
                     name="debit" 
                     placeholder="Debit"
+                    // value = {inputfields.debit}
                     value = {inputfields.debit}
                     onChange={event => handleChangeInput(index, event)}
+                    // onChange = {setDebit_r}
                     style={footerInputStyle}/>
 
               
-                    <input type="text"
+                    <input type="number"
                     name="credit" 
                     placeholder="Credit"
+                    // value = {credit_r}
                     value = {inputfields.credit}
+                    // onChange = {setCredit_r}
                     onChange={event => handleChangeInput(index, event)}
                     style={footerInputStyle}/>
 
@@ -259,37 +331,13 @@ const JournalEntry = () => {
 
                 ))}
                 
-                {/* <select style={inputStyle}
-                    onChange={(event) => changeoption(event.target.value)}
-                    value={selectOption}
-                    >
-                    <option value="General">General</option>
-                    <option value="Payment">Payment</option>
-                    <option value="Receipts">Receipts</option>
-                    <option value="Sales">Sales</option>
-                    <option value="Purchases">Purchases</option>
-                    
-                    
-                    </select> */}
-
-                {/* <input
-                    type="input"
-                    className="form-control"
-                    // onChange={onAccount}
-                    // value={accountname}
-                    style={footerInputStyle} */}
-
-                
-
-                   
-
                
                
 
               </div>
 
               <div className="modal-footer">
-                <button className="btn btn-sm btn-info"  >Save</button>
+                <button className="btn btn-sm btn-info" onClick={JournalEntry} >Save</button>
                 <Link to='/accountingDashboard/' className="btn btn-sm btn-danger">Close</Link>
               </div>
                 </div>
