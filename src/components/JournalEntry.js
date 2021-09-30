@@ -96,7 +96,7 @@ const JournalEntry = ({history}) => {
   
     useEffect(() =>{
       loadChartofAccountList()
-    },[])
+    },[setCharlist])
 
     const manageState = () => {
         setshowModal(!setshowModal)
@@ -158,7 +158,7 @@ const JournalEntry = ({history}) => {
       formfield.append('reference', reference_r)
       formfield.append('check_no_ref', check_no_ref_r)
       formfield.append('journalMemo', journalMemo_r)
-      formfield.append('account_name', account_name_r)
+      formfield.append('account_name', charlist)
       formfield.append('debit', debit_r)
       formfield.append('credit', credit_r)
 
@@ -239,15 +239,26 @@ const JournalEntry = ({history}) => {
 
                             />
                     <label style={labelStyle}>Journal Type</label>
-                    <select style={inputStyle}
-                        onChange={(event) => changeoption(event.target.value)}
-                        value={selectOption}
-                        >
-                        <option value="General">General</option>
-                        <option value="Payment">Payment</option>
-                        <option value="Receipts">Receipts</option>
-                        <option value="Sales">Sales</option>
-                        <option value="Purchases">Purchases</option>
+                        {/* <select style={selectStyle}>
+                            onChange={setCharlist}
+                            value={}
+                            {charlist.map((data) => (
+                              <option value={data}>{data.account_name}</option>
+                            ))}
+                            
+                          
+                            
+                          </select> */}
+
+                        <select style={inputStyle}
+                          onChange={(event) => changeoption(event.target.value)}
+                          value={selectOption}
+                          >
+                          <option value="General">General</option>
+                          <option value="Payment">Payment</option>
+                          <option value="Receipts">Receipts</option>
+                          <option value="Sales">Sales</option>
+                          <option value="Purchases">Purchases</option>
                        
                         
                         </select>
@@ -285,11 +296,11 @@ const JournalEntry = ({history}) => {
                 { inputfields.map((inputfields, index) => (
                   <div key={index}>
                     
-                    <select style={selectStyle}>
-                        onChange={(event) => changeoption(event.target.value)}
-                        value={selectOption}
+                    <select style={selectStyle}>Y
+                        onChange={(event) => setCharlist(event.target.value)}
+                        {/* value={charlist} */}
                         {charlist.map((data) => (
-                          <option value={data}>{data.account_name}</option>
+                          <option value={data.id}>{data.account_name}</option>
                         ))}
                         
                        
