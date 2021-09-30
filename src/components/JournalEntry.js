@@ -64,10 +64,10 @@ const selectStyle = {
     
     };
 
-const JournalEntry = ({history}) => {
+const JournalEntry = ({history},{props}) => {
 
     const [showModal, setshowModal] = useState(true);
-    const [selectOption, setSelectOption] = useState('Current Asset');
+    const [selectOption, setSelectOption] = useState('');
 
     const [charlist, setCharlist] = useState([]);
 
@@ -159,8 +159,8 @@ const JournalEntry = ({history}) => {
       formfield.append('check_no_ref', check_no_ref_r)
       formfield.append('journalMemo', journalMemo_r)
       formfield.append('account_name', account_name_r)
-      formfield.append('debit', debit_r)
-      formfield.append('credit', credit_r)
+      formfield.append('debit', inputfields.debit)
+      formfield.append('credit', inputfields.credit)
 
       await axios({
           method: 'POST',
@@ -169,7 +169,7 @@ const JournalEntry = ({history}) => {
       
       }).then ((response) => {
           console.log(response.data)
-          history.push('/chartofaccount-list/')
+          // history.push('/chartofaccount-list/')
       })
     };
 
@@ -197,6 +197,11 @@ const JournalEntry = ({history}) => {
       setJournalMemo_r(e.target.value);
 
     };
+
+    // const onAccountName = (e) => {
+    //   setAccount_name_r(e.target.value);
+
+    // };
 
     const onDebit = (e) => {
       setDebit_r(e.target.value);
@@ -239,7 +244,9 @@ const JournalEntry = ({history}) => {
 
                             />
                     <label style={labelStyle}>Journal Type</label>
-                    <select style={inputStyle}
+
+                     
+                      <select style={inputStyle}
                         onChange={(event) => changeoption(event.target.value)}
                         value={selectOption}
                         >
@@ -250,7 +257,7 @@ const JournalEntry = ({history}) => {
                         <option value="Purchases">Purchases</option>
                        
                         
-                        </select>
+                      </select>
 
                     <label style={labelStyle}>Reference</label>
                         <input
@@ -285,9 +292,15 @@ const JournalEntry = ({history}) => {
                 { inputfields.map((inputfields, index) => (
                   <div key={index}>
                     
-                    <select style={selectStyle}>
-                        onChange={(event) => changeoption(event.target.value)}
-                        value={selectOption}
+                    <select style={selectStyle}
+                        
+                        // onChange={setAccount_name_r}
+                        
+
+                        >
+                        onChange={(e) => setAccount_name_r(e.target.value)}
+                        value={account_name_r}
+                        
                         {charlist.map((data) => (
                           <option value={data}>{data.account_name}</option>
                         ))}
