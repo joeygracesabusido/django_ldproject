@@ -80,13 +80,16 @@ const JournalEntry = ({history},{props}) => {
     const [debit_r, setDebit_r] = React.useState('');
     const [credit_r, setCredit_r] = React.useState('');
 
+
+    const [selectList, setSelectList] = useState([])
+
     // const [req, setReq] = useState({
     //   account_name:""
     // })
 
 
     const [ inputfields, setInputfields] = useState([
-      {debit:'', credit:''}
+      {debit:'', credit:'',accountName:''}
     
     ]);
 
@@ -96,7 +99,7 @@ const JournalEntry = ({history},{props}) => {
   
     useEffect(() =>{
       loadChartofAccountList()
-    },[setCharlist])
+    },[])
 
     const manageState = () => {
         setshowModal(!setshowModal)
@@ -110,7 +113,7 @@ const JournalEntry = ({history},{props}) => {
     };
 
     const handleAddFields = () => {
-      setInputfields([...inputfields, {debit: '', credit: ''}])
+      setInputfields([...inputfields, {debit: '', credit: '', accountName: ''}])
     };
 
     const handleRemoveFields = (index) => {
@@ -158,9 +161,9 @@ const JournalEntry = ({history},{props}) => {
       formfield.append('reference', reference_r)
       formfield.append('check_no_ref', check_no_ref_r)
       formfield.append('journalMemo', journalMemo_r)
-      formfield.append('account_name', account_name_r)
-      formfield.append('debit', inputfields.debit)
-      formfield.append('credit', inputfields.credit)
+      formfield.append('account_name', selectList)
+      formfield.append('debit', debit_r)
+      formfield.append('credit', credit_r)
 
       await axios({
           method: 'POST',
@@ -168,8 +171,9 @@ const JournalEntry = ({history},{props}) => {
           data: formfield 
       
       }).then ((response) => {
-          console.log(response.data)
-          // history.push('/chartofaccount-list/')
+          // console.log(response.data)
+         console.log(response.data)
+          history.push('/chartofaccount-list/')
       })
     };
 
@@ -215,7 +219,17 @@ const JournalEntry = ({history},{props}) => {
 
     const handleSubmit = (e) => {
       e. preventDefault();
-      console.log('Inputfields', inputfields)
+      // console.log('Inputfields', inputfields)
+      console.log(inputfields)
+    };
+
+    const changeoption2 = (newOption) => {
+      setSelectList(newOption)
+      }
+
+    const handleChange = (e) => {
+      
+      setCharlist({ charlist: e.target.value });
     }
 
     return (
@@ -293,16 +307,17 @@ const JournalEntry = ({history},{props}) => {
                   <div key={index}>
                     
                     <select style={selectStyle}
-                        
+                        name="accountName"
                         // onChange={setAccount_name_r}
-                        
+                        // onChange={(event) => changeoption2(event.target.value)}
+                        // value = {selectList}
 
+                        value = {inputfields.accountName}
+                        onChange={event => handleChangeInput(index, event)}
                         >
-                        onChange={(e) => setAccount_name_r(e.target.value)}
-                        value={account_name_r}
                         
                         {charlist.map((data) => (
-                          <option value={data.id}>{data.account_name}</option>
+                          <option value={data.value}>{data.account_name}</option>
                         ))}
                         
                        
@@ -311,12 +326,14 @@ const JournalEntry = ({history},{props}) => {
 
 
                     <input type="number"
+                   
                     name="debit" 
                     placeholder="Debit"
-                    // value = {inputfields.debit}
+                    // value = {debit_r}
+                    // onChange = {onDebit}
                     value = {inputfields.debit}
                     onChange={event => handleChangeInput(index, event)}
-                    // onChange = {setDebit_r}
+                    
                     style={footerInputStyle}/>
 
               
@@ -324,8 +341,8 @@ const JournalEntry = ({history},{props}) => {
                     name="credit" 
                     placeholder="Credit"
                     // value = {credit_r}
+                    // onChange = {onCredit}
                     value = {inputfields.credit}
-                    // onChange = {setCredit_r}
                     onChange={event => handleChangeInput(index, event)}
                     style={footerInputStyle}/>
 
@@ -350,7 +367,7 @@ const JournalEntry = ({history},{props}) => {
               </div>
 
               <div className="modal-footer">
-                <button className="btn btn-sm btn-info" onClick={JournalEntry} >Save</button>
+                <button className="btn btn-sm btn-info" onClick={handleSubmit} >Save</button>
                 <Link to='/accountingDashboard/' className="btn btn-sm btn-danger">Close</Link>
               </div>
                 </div>
