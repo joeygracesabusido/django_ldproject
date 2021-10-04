@@ -252,6 +252,7 @@ const JournalEntry = ({history},{props}) => {
                             <input
                             type="date"
                             className="form-control"
+                            name="transdate"
                             onChange={onDate}
                             value={date}
                             style={inputStyle}
@@ -261,6 +262,7 @@ const JournalEntry = ({history},{props}) => {
 
                      
                       <select style={inputStyle}
+                        name="journal"
                         onChange={(event) => changeoption(event.target.value)}
                         value={selectOption}
                         >
@@ -275,6 +277,7 @@ const JournalEntry = ({history},{props}) => {
 
                     <label style={labelStyle}>Reference</label>
                         <input
+                        name="reference"
                         type="input"
                         className="form-control"
                         onChange={onReference}
@@ -285,6 +288,7 @@ const JournalEntry = ({history},{props}) => {
 
                     <label style={labelStyle}>Check No</label>
                         <input
+                        name="check_no_ref"
                         type="input"
                         className="form-control"
                         onChange={onCheckRef}
@@ -309,11 +313,11 @@ const JournalEntry = ({history},{props}) => {
                     <select style={selectStyle}
                         name="accountName"
                         // onChange={setAccount_name_r}
-                        // onChange={(event) => changeoption2(event.target.value)}
-                        // value = {selectList}
+                        onChange={(event) => changeoption2(event.target.value)}
+                        value = {selectList}
 
-                        value = {inputfields.accountName}
-                        onChange={event => handleChangeInput(index, event)}
+                        // value = {inputfields.accountName}
+                        // onChange={event => handleChangeInput(index, event)}
                         >
                         
                         {charlist.map((data) => (
@@ -367,7 +371,7 @@ const JournalEntry = ({history},{props}) => {
               </div>
 
               <div className="modal-footer">
-                <button className="btn btn-sm btn-info" onClick={handleSubmit} >Save</button>
+                <button className="btn btn-sm btn-info" onClick={JournalEntry} >Save</button>
                 <Link to='/accountingDashboard/' className="btn btn-sm btn-danger">Close</Link>
               </div>
                 </div>
