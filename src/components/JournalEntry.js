@@ -161,7 +161,7 @@ const JournalEntry = ({history},{props}) => {
       formfield.append('reference', reference_r)
       formfield.append('check_no_ref', check_no_ref_r)
       formfield.append('journalMemo', journalMemo_r)
-      formfield.append('account_name', selectList)
+      // formfield.append('account_name_id', selectList)
       formfield.append('debit', debit_r)
       formfield.append('credit', credit_r)
 
@@ -244,7 +244,7 @@ const JournalEntry = ({history},{props}) => {
           <div className="modal-dialog" >
             <div className="modal-content">
               <div className="modal-header">
-                <h4 className="modal-title" >Add Chart of Account</h4>
+                <h4 className="modal-title" >Journal Entry</h4>
               </div>
 
                <div className="modal-body"  >
