@@ -29,6 +29,10 @@ const AccountingDashboard = () => {
                 <h1 style={h1Style}>Journal Voucher</h1>
             </Link>
 
+            <Link to={`/journalEntry-list/`} >
+                <h1 style={h1Style}>Journal Entry List</h1>
+            </Link>
+
     
 
     

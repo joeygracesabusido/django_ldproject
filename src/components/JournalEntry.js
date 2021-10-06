@@ -83,6 +83,8 @@ const JournalEntry = ({history},{props}) => {
 
     const [selectList, setSelectList] = useState([])
 
+    const [selectList2, setSelectList2] = useState([])
+
     // const [req, setReq] = useState({
     //   account_name:""
     // })
@@ -161,7 +163,7 @@ const JournalEntry = ({history},{props}) => {
       formfield.append('reference', reference_r)
       formfield.append('check_no_ref', check_no_ref_r)
       formfield.append('journalMemo', journalMemo_r)
-      // formfield.append('account_name_id', selectList)
+      formfield.append('account_name', selectList)
       formfield.append('debit', debit_r)
       formfield.append('credit', credit_r)
 
@@ -173,7 +175,7 @@ const JournalEntry = ({history},{props}) => {
       }).then ((response) => {
           // console.log(response.data)
          console.log(response.data)
-          history.push('/chartofaccount-list/')
+          history.push('/journalEntry-list/')
       })
     };
 
@@ -230,7 +232,13 @@ const JournalEntry = ({history},{props}) => {
     const handleChange = (e) => {
       
       setCharlist({ charlist: e.target.value });
-    }
+    };
+
+
+    const onPost = (e) => {
+      setAccount_name_r(e.target.value);
+     
+   };
 
     return (
         <>
@@ -312,7 +320,10 @@ const JournalEntry = ({history},{props}) => {
                     
                     <select style={selectStyle}
                         name="accountName"
-                        // onChange={setAccount_name_r}
+                        // type="number"
+                        // onChange={onPost}
+                        // value = {account_name_r}
+
                         onChange={(event) => changeoption2(event.target.value)}
                         value = {selectList}
 
@@ -323,10 +334,15 @@ const JournalEntry = ({history},{props}) => {
                         {charlist.map((data) => (
                           <option value={data.value}>{data.account_name}</option>
                         ))}
-                        
-                       
-                        
+
+
+                        {/* {charlist.map((data) => (
+                          <option value={data.value}>{data.id}</option>
+                        ))} */}
+
                       </select>
+
+                    
 
 
                     <input type="number"

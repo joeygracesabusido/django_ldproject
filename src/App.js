@@ -31,6 +31,8 @@ import EditCOF from './components/EditCOF';
 // this is for Journal Entry Transaction
 
 import JournalEntry from './components/JournalEntry';
+import Journale_Entry_list from './components/Journale_Entry_list';
+
 
 
 
@@ -53,6 +55,7 @@ function App() {
         <Route path="/chartofaccount-list/" component={Listchartofaccount}/>
         <Route path="/chartofaccount-edit/:id" component={EditCOF}/>
         <Route path="/journalEntry-post/" component={JournalEntry}/>
+        <Route path="/journalEntry-list/" component={Journale_Entry_list}/>
         
       {/* <div className="app"> */}
         
