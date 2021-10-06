@@ -91,7 +91,7 @@ const JournalEntry = ({history},{props}) => {
 
 
     const [ inputfields, setInputfields] = useState([
-      {debit:'', credit:'',accountName:''}
+      {debit:'', credit:'',account_name:''}
     
     ]);
 
@@ -107,15 +107,16 @@ const JournalEntry = ({history},{props}) => {
         setshowModal(!setshowModal)
       };
     
+      // Magulo data structure mo haha
     const handleChangeInput =(index, event)=> {
-        // console.log(index,event.target.name)
-        const values = [...inputfields];
-        values [index][event.target.name] = event.target.value;
+      const values = [...inputfields];
+      console.log(values[index][event.target.name])
+        values[index][event.target.name] = event.target.value;
         setInputfields(values);
     };
 
     const handleAddFields = () => {
-      setInputfields([...inputfields, {debit: '', credit: '', accountName: ''}])
+      setInputfields([...inputfields, {debit: '', credit: '', account_name: ''}])
     };
 
     const handleRemoveFields = (index) => {
@@ -163,9 +164,21 @@ const JournalEntry = ({history},{props}) => {
       formfield.append('reference', reference_r)
       formfield.append('check_no_ref', check_no_ref_r)
       formfield.append('journalMemo', journalMemo_r)
-      formfield.append('account_name', selectList)
+      formfield.append('account_name', inputfields.account_name)
+      formfield.append('accounts', inputfields) // ito nalang isubmit mo
+      // palitan mo model mo gawa ka ng 'accounts' field 
+      // hindi pwede yang sayo kung multiple ang pweding isubmit
+
+      // sir ipakita koyong backend model
       formfield.append('debit', debit_r)
       formfield.append('credit', credit_r)
+      // what if multiple accounts added?
+      //sir yon din yong isang problem ko kasi dapat yan multiple 
+      //account yan yong account name saka debit credit 
+      // ipasa mo pagkasubmit in array nalang. tapos 
+      // yang backend mo bahala mag loop dun 
+      // tsaka dapat yung model mo accounts  hindi account_name
+      // yung accounts ay array ang type para istore multiple accounts 
 
       await axios({
           method: 'POST',
@@ -175,7 +188,7 @@ const JournalEntry = ({history},{props}) => {
       }).then ((response) => {
           // console.log(response.data)
          console.log(response.data)
-          history.push('/journalEntry-list/')
+          // history.push('/journalEntry-list/')
       })
     };
 
@@ -239,6 +252,8 @@ const JournalEntry = ({history},{props}) => {
       setAccount_name_r(e.target.value);
      
    };
+
+   
 
     return (
         <>
@@ -319,16 +334,16 @@ const JournalEntry = ({history},{props}) => {
                   <div key={index}>
                     
                     <select style={selectStyle}
-                        name="accountName"
+                        name="account_name"
                         // type="number"
                         // onChange={onPost}
                         // value = {account_name_r}
 
-                        onChange={(event) => changeoption2(event.target.value)}
-                        value = {selectList}
+                        // onChange={(event) => changeoption2(event.target.value)}
+                        // value = {selectList}
 
-                        // value = {inputfields.accountName}
-                        // onChange={event => handleChangeInput(index, event)}
+                        value = {inputfields.account_name}
+                        onChange={event => handleChangeInput(index, event)}
                         >
                         
                         {charlist.map((data) => (
@@ -400,4 +415,4 @@ const JournalEntry = ({history},{props}) => {
 
 export default JournalEntry
 
-
+// pag click ng save ang value ng account name undefined

@@ -146,3 +146,6 @@ const Createpost = ({history}) => {
 }
 
 export default Createpost
+// Ano nga kasi issue?
+
+// sa journalEntry sir 
