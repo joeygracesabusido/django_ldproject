@@ -43,18 +43,28 @@ const Createpost = ({history}) => {
     }
 
     const createNote = async () => {
-        let formfield = new FormData()
 
-        formfield.append('body', post)
+      fetch('/api/notes-post/', {
+        method: "POST",
+        headers:{
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(note)
+        
+      })
+     
+        // let formfield = new FormData()
 
-        await axios({
-          method: 'POST',
-          url: `/api/notes-post/`,
-          data: formfield 
-        }).then ((response) => {
-            console.log(response.data)
-            history.push('/note-list/')
-        })
+        // formfield.append('body', post)
+
+        // await axios({
+        //   method: 'POST',
+        //   url: `/api/notes-post/`,
+        //   data: formfield 
+        // }).then ((response) => {
+        //     console.log(response.data)
+        //     history.push('/note-list/')
+        // })
        
 
 
