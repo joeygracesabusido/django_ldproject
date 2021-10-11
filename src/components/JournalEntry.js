@@ -230,7 +230,7 @@ const JournalEntry = ({history},{props}) => {
       // console.log('Inputfields', inputfields)
     
       var data = inputfields.filter(inputfield => inputfield.account_name === "Revolving Fund")
-      if (data === inputfields.account_name) {
+      if (data !== inputfields.account_name) {
         console.log(data)
       }else{
         console.log("Data has no match")
