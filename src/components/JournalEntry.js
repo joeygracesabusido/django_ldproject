@@ -110,9 +110,11 @@ const JournalEntry = ({history},{props}) => {
       // Magulo data structure mo haha
     const handleChangeInput =(index, event)=> {
       const values = [...inputfields];
-      console.log(values[index][event.target.name])
-        values[index][event.target.name] = event.target.value;
-        setInputfields(values);
+      // console.log(values[index][event.target.name])
+      values[index][event.target.name] = event.target.value;
+      setInputfields(values);
+      // console.log(values)
+        
     };
 
     const handleAddFields = () => {
@@ -164,31 +166,22 @@ const JournalEntry = ({history},{props}) => {
       formfield.append('reference', reference_r)
       formfield.append('check_no_ref', check_no_ref_r)
       formfield.append('journalMemo', journalMemo_r)
-      formfield.append('account_name', inputfields.account_name)
+      formfield.append('account_name', inputfields)
       formfield.append('accounts', inputfields) // ito nalang isubmit mo
-      // palitan mo model mo gawa ka ng 'accounts' field 
-      // hindi pwede yang sayo kung multiple ang pweding isubmit
-
-      // sir ipakita koyong backend model
+      
       formfield.append('debit', debit_r)
       formfield.append('credit', credit_r)
-      // what if multiple accounts added?
-      //sir yon din yong isang problem ko kasi dapat yan multiple 
-      //account yan yong account name saka debit credit 
-      // ipasa mo pagkasubmit in array nalang. tapos 
-      // yang backend mo bahala mag loop dun 
-      // tsaka dapat yung model mo accounts  hindi account_name
-      // yung accounts ay array ang type para istore multiple accounts 
-
+     
       await axios({
           method: 'POST',
-          url: `/accountingModule/journal-post/`,
+          url: `/accountingModule/journal-post2/`,
           data: formfield 
       
       }).then ((response) => {
           // console.log(response.data)
          console.log(response.data)
-          // history.push('/journalEntry-list/')
+        //  history.push('/journalEntry-list/')
+        // console.log(inputfields.account_name)
       })
     };
 
@@ -235,7 +228,21 @@ const JournalEntry = ({history},{props}) => {
     const handleSubmit = (e) => {
       e. preventDefault();
       // console.log('Inputfields', inputfields)
-      console.log(inputfields)
+    
+      var data = inputfields.filter(inputfield => inputfield.account_name === "Revolving Fund")
+      if (data === inputfields.account_name) {
+        console.log(data)
+      }else{
+        console.log("Data has no match")
+      }
+      
+
+      
+      
+
+      // items = [{id: 1, text: 'test words'}, {id: 2, text: 'another test'}];
+      // var data = items.filter(item => item.text === 'test words')
+      // console.log(data); 
     };
 
     const changeoption2 = (newOption) => {
@@ -402,7 +409,7 @@ const JournalEntry = ({history},{props}) => {
               </div>
 
               <div className="modal-footer">
-                <button className="btn btn-sm btn-info" onClick={JournalEntry} >Save</button>
+                <button className="btn btn-sm btn-info" onClick={handleSubmit} >Save</button>
                 <Link to='/accountingDashboard/' className="btn btn-sm btn-danger">Close</Link>
               </div>
                 </div>
